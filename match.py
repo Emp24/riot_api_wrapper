@@ -10,6 +10,8 @@ class match:
         self.lane = get_lane()
         self.date = get_match_date()
         """
+    def get_match_status():
+        
 
 #TODO: getChamp()
 #TODO: get_match_status()

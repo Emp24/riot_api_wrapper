@@ -1,5 +1,5 @@
 import requests
-key = "RGAPI-0bee46db-cc6c-425c-9577-ac0b49665436"
+key = "RGAPI-6dee6018-3914-471c-855f-71eede6a7c56"
 
 
 def getID(summoner_name):
@@ -33,9 +33,26 @@ class request_handler_dynamic(request_handler):
         r = requests.get(url=url)
         data = r.json()
         return data
+    
+    def get_gameID(summonerID):
+        gameId_list = []
+        match_history = request_handler_dynamic.getMatchHistory(summonerID)
+        for match in match_history['matches']:
+            gameId_list.append(match['gameId'])
+        return gameId_list
+
+    def get_Match(gameID):
+        url = "https://euw1.api.riotgames.com/lol/match/v4/matches/"+ str(gameID) + \
+            "?api_key="+ key
+        r = requests.get(url=url)
+        data = r.json()
+        return data
+
+
+
 class request_handler_static(request_handler):
     def getChampinfo():
-        url = "http://ddragon.leagueoflegends.com/cdn/10.2.1/data/en_US/champion.json"
+        url = "http://ddragon.leagueoflegends.com/cdn/10.3.1/data/en_US/champion.json"
         r = requests.get(url=url)
         data = r.json()
         return data['data']
